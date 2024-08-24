@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: rabbitmq-container
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - spring
+
+  ms-client:
+    container_name: client-container
+    build:
+      context: ./
+      dockerfile: ./ms-client/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - spring
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  ms-account:
+    container_name: account-container
+    build:
+      context: ./
+      dockerfile: ./ms-account/Dockerfile
+    ports:
+      - "9090:9090"
+    networks:
+      - spring
+    depends_on:
+      - rabbitmq
+    restart: always
+
+networks:
+  spring:
+    name: spring

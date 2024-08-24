@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: ms-account
+  rabbitmq:
+    password: guest
+    port: '5672'
+    host: rabbitmq-container
+    username: guest
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:account;
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      show_sql: true
+      format_sql: true
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 9090
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
