@@ -13,7 +13,7 @@ spring:
       settings:
         web-allow-others: true
   datasource:
-    url: jdbc:h2:mem:client;
+    url: jdbc:h2:file:/data/h2/client;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
     username: sa
     password: sa
     driver-class-name: org.h2.Driver

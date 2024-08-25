@@ -16,6 +16,8 @@ services:
       dockerfile: ./ms-client/Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - ./data/h2:/opt/h2
     environment:
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
@@ -32,6 +34,8 @@ services:
       dockerfile: ./ms-account/Dockerfile
     ports:
       - "9090:9090"
+    volumes:
+      - ./data/h2:/opt/h2
     environment:
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
