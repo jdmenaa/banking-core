@@ -1,13 +1,13 @@
-version: "3.9"
+version: "3.8"
 services:
   rabbitmq:
-    image: rabbitmq:3.9-management
+    image: rabbitmq:3-management
     container_name: rabbitmq-container
     ports:
       - "5672:5672"
       - "15672:15672"
-    networks:
-      - spring
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
   ms-client:
     container_name: client-container
@@ -16,11 +16,14 @@ services:
       dockerfile: ./ms-client/Dockerfile
     ports:
       - "8080:8080"
-    networks:
-      - spring
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+
     depends_on:
       - rabbitmq
-    restart: always
 
   ms-account:
     container_name: account-container
@@ -29,12 +32,14 @@ services:
       dockerfile: ./ms-account/Dockerfile
     ports:
       - "9090:9090"
-    networks:
-      - spring
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+
     depends_on:
       - rabbitmq
-    restart: always
 
-networks:
-  spring:
-    name: spring
+volumes:
+  rabbitmq_data:

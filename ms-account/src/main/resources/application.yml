@@ -4,11 +4,14 @@ spring:
   rabbitmq:
     password: guest
     port: '5672'
-    host: rabbitmq-container
+    host: localhost
     username: guest
   h2:
     console:
       enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
   datasource:
     url: jdbc:h2:mem:account;
     username: sa
