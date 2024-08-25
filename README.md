@@ -10,6 +10,7 @@
 3. Base datos memoria H2
 4. Compilar mvn clean install
 5. Ejecutar mvn spring-boot:run / docker-compose up --build
+6. Bajar los contenedores docker-compose down
 
 ## Antecedentes
 Proyecto Reto Neoris.
